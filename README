@@ -1,0 +1,58 @@
+# SpringMaven...
+
+/*For ProductApi*/
+
+http://localhost:8080/api/product/get?id=7 GET
+
+http://localhost:8080/api/product/update POST
+{"id":1,"name":"prod7"}
+
+http://localhost:8080/api/product/create POST
+{"id":3,"name":"prod3"}
+
+http://localhost:8080/api/product/findAll  GET
+
+http://localhost:8080/api/product/delete?id=1  GET
+
+
+/*For UserApi*/
+http://localhost:8080/api/user/findAllUsers GET
+
+http://localhost:8080/api/user/createUser POST
+{"name":"user1"}
+
+http://localhost:8080/api/user/deleteUser POST
+{"name":"user1"}
+
+http://localhost:8080/api/user/takeProducts POST
+{
+    "name":"user1",
+    "productList":[{"id":2,"name":"prod2"},{"id":3,"name":"prod3"}]
+}
+
+
+/*MySQL db create list*/
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE products(id NUMBER(10) NOT NULL,name varchar2(100) NOT NULL, CONSTRAINT pk_Product PRIMARY KEY(id));
+
+INSERT  INTO products VALUES
+	 (1,'Product1'),
+	 (2,'Product2'),
+	 (3,'Product3'),
+	 (4,'Product4'),
+	 (5,'Product5');
+
+
+CREATE TABLE products
+(
+id INT UNSIGNED NOT NULL,
+name VARCHAR(100) NOT NULL,
+CONSTRAINT pk_products PRIMARY KEY(id)
+);

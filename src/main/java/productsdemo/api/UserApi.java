@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Path("/user")
@@ -28,7 +29,7 @@ public class UserApi {
         ShopingCart s = new ShopingCart();
         s.setUser(user);
         shopingCarts.add(s);
-        return Response.ok("User "+user.getName()+" has bee created").build();
+        return Response.ok("User "+user.getName()+" has been created!!!").build();
 
     }
 
@@ -38,49 +39,72 @@ public class UserApi {
     @Path("/deleteUser")
     public Response deleteUser(User user){
         for(ShopingCart shopingCart: shopingCarts){
-            if (shopingCart.getUser().equals(user)){
+
+            if (shopingCart.getUser().getName().equals(user.getName())){
                 shopingCarts.remove(shopingCart);
                 return Response.ok("User "+user.getName()+" has been deleted!").build();
             }
         }
-        return Response.ok("User not found").build();
+        return Response.ok("User not foundd!").build();
     }
 
     @POST
     @Consumes("application/json")
-    @Produces("text/plain")
+    @Produces("application/json")
     @Path("/takeProducts")
-    public Response takeProducts(User user, List<Product> productList){
+    //public Response takeProducts(List<Object> list){
+    public Response takeProducts(Map<String,Object> userListMap){
+        String name=null;
+        ArrayList<ShopingCart> s = new ArrayList<ShopingCart>();
+        for (Map.Entry entry: userListMap.entrySet()){
 
-        if (user==null)return Response.ok("User is null!").build();
-        for (ShopingCart shopingCart: shopingCarts){
-            if(shopingCart.getUser().equals(user)){
-                shopingCart.setProductList(productList);
-                return Response.ok("Ok!").build();
+            if((entry.getKey()).equals("name")) {
+                name = (String) entry.getValue();
+                continue;
+            }
+            for(ShopingCart shopingCart: shopingCarts){
+                if (shopingCart.getUser().getName().equals(name)){
+                    shopingCart.setProductList((List<Product>) entry.getValue());
+                    s.add(shopingCart);
+                }else {
+                    return Response.ok("Data ERROR").build();
+                }
             }
         }
-        return Response.ok("User not found!").build();
+        return Response.ok(s).build();
     }
+
 
     @POST
     @Consumes("application/json")
-    @Produces("text/plain")
+    @Produces("application/json")
     @Path("/deleteProducts")
-    public Response deleteProducts(User user, List<Product> productList){
-        if (user==null)return Response.ok("User is null!").build();
+    public Response deleteProducts(Map<String,Object> userListMap){
 
-        for (ShopingCart shopingCart: shopingCarts){
-            if(shopingCart.getUser().equals(user)){
-                shopingCart.getProductList().addAll(productList);
-                return Response.ok("Ok!").build();
+        String name=null;
+        ArrayList<ShopingCart> s = new ArrayList<ShopingCart>();
+        for (Map.Entry entry: userListMap.entrySet()){
+
+            if((entry.getKey()).equals("name")) {
+                name = (String) entry.getValue();
+                continue;
             }
+            for(ShopingCart shopingCart: shopingCarts){
+                if (shopingCart.getUser().getName().equals(name)){
+                    shopingCart.getProductList().removeAll((List<Product>) entry.getValue());
+                    s.add(shopingCart);
+                }else {
+                    return Response.ok("Data ERROR").build();
+                }
+            }
+
         }
 
-        return Response.ok("User not found!").build();
+        return Response.ok(s).build();
     }
 
     @GET
-    @Produces("text/plain")
+    @Produces("application/json")
     @Path("/findAllUsers")
     public Response findAllUsers(){
         List<User> users = new LinkedList<User>();
@@ -90,6 +114,7 @@ public class UserApi {
         return Response.ok(users).build();
 
     }
+
 
 
 }

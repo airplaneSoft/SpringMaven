@@ -9,11 +9,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //@Repository
-public class DumbProductDao{}
-/*public class DumbProductDao implements ProductDao
+public class DumbProductDao implements ProductDao
 {
 
-   /* private Map<Integer, Product> productMap = new ConcurrentHashMap<Integer, Product>();
+    private Map<Integer, Product> productMap = new ConcurrentHashMap<Integer, Product>();
 
     @Override
     public Product findById(Integer id) {
@@ -43,4 +42,4 @@ public class DumbProductDao{}
     public Collection<Product> findAll() {
         return productMap.values();
     }
-}*/
+}

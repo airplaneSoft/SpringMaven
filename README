@@ -1,5 +1,5 @@
 # SpringMaven...
-
+Artifact SpringMaven:war
 /*For ProductApi*/
 
 http://localhost:8080/api/product/get?id=7 GET

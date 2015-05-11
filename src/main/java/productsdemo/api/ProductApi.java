@@ -30,16 +30,16 @@ public class ProductApi {
     }
 
 
-    @POST
-    @Consumes("application/json")
+    @GET
     @Produces("text/plain")
     @Path("/delete")
-    public Response delete(Integer id) {
+    public Response delete(@QueryParam("id")Integer id) {
 
         productDao.delete(id);
         return Response.ok("Deleted").build();
 
     }
+
     @POST
     @Consumes("application/json")
     @Produces("text/plain")

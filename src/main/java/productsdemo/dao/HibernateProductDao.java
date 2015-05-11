@@ -20,7 +20,7 @@ public class HibernateProductDao implements ProductDao {
         Product product = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            product = (Product) session.load(Product.class, id);
+           product = (Product) session.get(Product.class, id);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка I/O", JOptionPane.OK_OPTION);
         } finally {

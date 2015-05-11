@@ -30,7 +30,6 @@ public class ProductApi {
     }
 
 
-
     @POST
     @Consumes("application/json")
     @Produces("text/plain")
